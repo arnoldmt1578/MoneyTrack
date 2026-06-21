@@ -27,4 +27,11 @@
         android:text="Registrar Gasto"
         android:layout_marginTop="30dp" />
 
+    <Button
+        android:id="@+id/btnVerGastos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver Gastos"
+        android:layout_marginTop="15dp" />
+
 </LinearLayout>

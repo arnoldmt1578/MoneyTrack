@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lista de Gastos"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/etIdEliminar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID del gasto a eliminar"
+        android:inputType="number"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/btnEliminar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar Gasto"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/etIdActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID del gasto a actualizar"
+        android:inputType="number"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/etNuevoMonto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nuevo monto"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/etNuevaDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nueva descripción"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btnActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actualizar Gasto"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvGastos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cargando gastos..."
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
