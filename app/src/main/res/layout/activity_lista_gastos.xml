@@ -1,69 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="#F4F7FB"
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lista de Gastos"
-        android:textSize="24sp"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:id="@+id/etIdEliminar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID del gasto a eliminar"
-        android:inputType="number"
-        android:layout_marginTop="20dp"/>
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <Button
-        android:id="@+id/btnEliminar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Eliminar Gasto"
-        android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mis gastos"
+            android:textColor="#1976D2"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/etIdActualizar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ID del gasto a actualizar"
-        android:inputType="number"
-        android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Consulta, actualiza o elimina los gastos registrados"
+            android:textColor="#5F6368"
+            android:textSize="16sp"/>
 
-    <EditText
-        android:id="@+id/etNuevoMonto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nuevo monto"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:elevation="5dp"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etNuevaDescripcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nueva descripción"
-        android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gastos registrados"
+                android:textColor="#202124"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/btnActualizar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Actualizar Gasto"
-        android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/tvGastos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Cargando gastos..."
+                android:textColor="#3C4043"
+                android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/tvGastos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cargando gastos..."
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"/>
+        </LinearLayout>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:elevation="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actualizar gasto"
+                android:textColor="#202124"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etIdActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/fondo_campo"
+                android:hint="ID del gasto"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+            <EditText
+                android:id="@+id/etNuevoMonto"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/fondo_campo"
+                android:hint="Nuevo monto"
+                android:inputType="numberDecimal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+            <EditText
+                android:id="@+id/etNuevaDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/fondo_campo"
+                android:gravity="top"
+                android:hint="Nueva descripción"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLength="150"
+                android:padding="16dp"/>
+
+            <Button
+                android:id="@+id/btnActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/fondo_boton_principal"
+                android:text="Actualizar gasto"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:elevation="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eliminar gasto"
+                android:textColor="#202124"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etIdEliminar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/fondo_campo"
+                android:hint="ID del gasto"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+            <Button
+                android:id="@+id/btnEliminar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/fondo_boton_eliminar"
+                android:text="Eliminar gasto"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

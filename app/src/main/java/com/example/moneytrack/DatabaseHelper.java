@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "MoneyTrack.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -71,6 +71,118 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return resultado > 0;
     }
 
+    public boolean insertarUsuario(
+            String nombre,
+            String correo,
+            String contrasena,
+            String fechaRegistro
+    ) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("nombre", nombre);
+        values.put("correo", correo);
+        values.put("contrasena", contrasena);
+        values.put("fecha_registro", fechaRegistro);
+
+        long resultado = db.insert("Usuario", null, values);
+
+        return resultado != -1;
+    }
+
+    public boolean validarUsuario(String correo, String contrasena) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM Usuario WHERE correo = ? AND contrasena = ?",
+                new String[]{correo, contrasena}
+        );
+
+        boolean existe = cursor.getCount() > 0;
+
+        cursor.close();
+
+        return existe;
+    }
+
+    public String obtenerNombreUsuario(String correo) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT nombre FROM Usuario WHERE correo = ?",
+                new String[]{correo}
+        );
+
+        String nombre = "";
+
+        if (cursor.moveToFirst()) {
+            nombre = cursor.getString(0);
+        }
+
+        cursor.close();
+
+        return nombre;
+    }
+
+    public boolean existeCorreo(String correo) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT id_usuario FROM Usuario WHERE correo = ?",
+                new String[]{correo}
+        );
+
+        boolean existe = cursor.moveToFirst();
+
+        cursor.close();
+
+        return existe;
+    }
+
+    public int obtenerCantidadGastos() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM Gasto",
+                null
+        );
+
+        int cantidad = 0;
+
+        if (cursor.moveToFirst()) {
+            cantidad = cursor.getInt(0);
+        }
+
+        cursor.close();
+
+        return cantidad;
+    }
+
+    public double obtenerTotalGastos() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT SUM(monto) FROM Gasto",
+                null
+        );
+
+        double total = 0;
+
+        if (cursor.moveToFirst() && !cursor.isNull(0)) {
+            total = cursor.getDouble(0);
+        }
+
+        cursor.close();
+
+        return total;
+    }
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -79,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE Usuario (" +
                         "id_usuario INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "nombre TEXT NOT NULL," +
-                        "correo TEXT NOT NULL," +
+                        "correo TEXT NOT NULL UNIQUE," +
                         "contrasena TEXT NOT NULL," +
                         "fecha_registro TEXT NOT NULL" +
                         ")";

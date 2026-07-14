@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyTrack">
         <activity
+            android:name=".RegistroUsuarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListaGastosActivity"
             android:exported="false" />
         <activity

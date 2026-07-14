@@ -13,64 +13,89 @@ import java.util.Locale;
 
 public class RegistrarGastoActivity extends AppCompatActivity {
 
-    Button btnGuardar;
-    EditText etMonto;
-    EditText etDescripcion;
+    private Button btnGuardar;
+    private EditText etMonto;
+    private EditText etDescripcion;
+
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_gasto);
 
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.getWritableDatabase();
-
         etMonto = findViewById(R.id.etMonto);
         etDescripcion = findViewById(R.id.etDescripcion);
         btnGuardar = findViewById(R.id.btnGuardar);
 
-        btnGuardar.setOnClickListener(v -> {
+        dbHelper = new DatabaseHelper(this);
 
-            String montoTexto = etMonto.getText().toString().trim();
-            String descripcion = etDescripcion.getText().toString().trim();
+        btnGuardar.setOnClickListener(v -> guardarGasto());
+    }
 
-            if (montoTexto.isEmpty()) {
-                Toast.makeText(this, "Debe ingresar un monto", Toast.LENGTH_SHORT).show();
-                return;
-            }
+    private void guardarGasto() {
 
-            double monto = Double.parseDouble(montoTexto);
+        String montoTexto = etMonto.getText().toString().trim();
+        String descripcion = etDescripcion.getText().toString().trim();
 
-            String fecha = new SimpleDateFormat(
-                    "yyyy-MM-dd",
-                    Locale.getDefault()
-            ).format(new Date());
+        if (montoTexto.isEmpty()) {
+            etMonto.setError("Debe ingresar un monto");
+            etMonto.requestFocus();
+            return;
+        }
 
-            boolean insertado = dbHelper.insertarGasto(
-                    monto,
-                    fecha,
-                    descripcion
+        double monto;
+
+        try {
+            monto = Double.parseDouble(montoTexto);
+        } catch (NumberFormatException e) {
+            etMonto.setError("Ingrese un monto válido");
+            etMonto.requestFocus();
+            return;
+        }
+
+        if (monto <= 0) {
+            etMonto.setError("El monto debe ser mayor que cero");
+            etMonto.requestFocus();
+            return;
+        }
+
+        if (descripcion.length() > 150) {
+            etDescripcion.setError(
+                    "La descripción no puede superar los 150 caracteres"
             );
+            etDescripcion.requestFocus();
+            return;
+        }
 
-            if (insertado) {
+        String fecha = new SimpleDateFormat(
+                "yyyy-MM-dd",
+                Locale.getDefault()
+        ).format(new Date());
 
-                Toast.makeText(
-                        this,
-                        "Gasto guardado correctamente",
-                        Toast.LENGTH_SHORT
-                ).show();
+        boolean insertado = dbHelper.insertarGasto(
+                monto,
+                fecha,
+                descripcion
+        );
 
-                etMonto.setText("");
-                etDescripcion.setText("");
+        if (insertado) {
+            Toast.makeText(
+                    this,
+                    "Gasto guardado correctamente",
+                    Toast.LENGTH_SHORT
+            ).show();
 
-            } else {
+            etMonto.setText("");
+            etDescripcion.setText("");
+            etMonto.requestFocus();
 
-                Toast.makeText(
-                        this,
-                        "Error al guardar el gasto",
-                        Toast.LENGTH_SHORT
-                ).show();
-            }
-        });
+        } else {
+            Toast.makeText(
+                    this,
+                    "Error al guardar el gasto",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
     }
 }
